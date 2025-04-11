@@ -44,7 +44,7 @@
   </script>
 
   <script type="module">
-    import { parseConversation, downloadFile } from './js/parser.js';
+    import { parseConversation, downloadFile, setGlobalName } from './js/parser.js';
     import { createOverlay } from './js/overlay.js';
 
     fetch('header.html')
@@ -126,6 +126,7 @@
             Promise.all(filePromises).then(() => {
               let users = [];
               let htmlContent = "";
+              setGlobalName("");
               ({ users, htmlContent } = parseConversation(dict));
               console.log(users);
               const overlay = createOverlay(users);

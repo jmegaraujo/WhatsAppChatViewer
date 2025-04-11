@@ -22,7 +22,6 @@ const regexMessage = message => message.match(/^\[?(\d{2})\/(\d{2})\/(\d{4}), (\
 // Main Parsing Function
 export function parseConversation(dict) {
     users = [];
-    globalName = "";
     let htmlContent = `
         <div style="display: flex; flex-direction: column; align-items: flex-start;">
             <div class="message" style="padding: 10px; border-radius: 10px; width: fit-content; font-family: sans-serif; margin: 20px auto 10px auto; display: table;">
