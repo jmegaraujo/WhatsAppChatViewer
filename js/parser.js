@@ -135,8 +135,13 @@ function parseAttachment(text, { marginTop, showName, name, formattedDate, dict 
     const filename = text.match(/<attached: (.+?)>/)?.[1];
     const result = dict.find(item => decodeURIComponent(item.filename).includes(filename));
     if (!result) {
-        return `<div class="message">Missing attachment: ${escapeHtml(filename)}</div>`;
-      }
+        return `
+        <div class="message" style="margin-top: ${marginTop}; ${name === globalName ? 'align-self: flex-end;' : ''}">
+                ${showName ? `<div class="sender-name">${escapeHtml(name)}</div>` : ''}
+                <div>Missing attachment: ${escapeHtml(filename)}</div>
+                <div style="font-size: 0.8em; color: #bbb; margin-top: 5px;">${formattedDate}</div>
+            </div>`;
+    }
       
     const ext = result.filename.split('.').pop().toLowerCase();
     const cleanFilename = result.filename.split('-').slice(1).join('-');

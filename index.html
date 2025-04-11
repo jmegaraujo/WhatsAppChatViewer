@@ -134,6 +134,7 @@
       }
 
       document.addEventListener('click', function(event) {
+        if (!document.getElementById("myNav")) return;
         const myNav = document.getElementById("myNav");
         const openbtn = document.querySelector('.openbtn');
         
