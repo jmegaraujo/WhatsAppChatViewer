@@ -23,7 +23,7 @@ const regexMessage = message => message.match(/^\[?(\d{2})\/(\d{2})\/(\d{4}), (\
 export function parseConversation(dict) {
     users = [];
     let htmlContent = `
-        <div style="display: flex; flex-direction: column; align-items: flex-start;">
+        <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
             <div class="message" style="padding: 10px; border-radius: 10px; width: fit-content; font-family: sans-serif; margin: 20px auto 10px auto; display: table;">
                 <div style="color: #eac473; font-family: sans-serif; padding: 10px 16px; font-size: 14px; display: flex; align-items: center;">
                     <span style="margin-right: 8px;">🔒</span>
@@ -151,21 +151,21 @@ function parseAttachment(text, { marginTop, showName, name, formattedDate, dict 
         return `
             <div class="message" style="margin-top: ${marginTop}; ${name === globalName ? 'align-self: flex-end;' : ''}">
                 ${showName ? `<div class="sender-name">${escapeHtml(name)}</div>` : ''}
-                <img src="${result.url}" alt="${escapeHtml(result.filename)}" style="max-width: 300px; border-radius: 5px; margin-top: 5px;">
+                <img src="${result.url}" alt="${escapeHtml(result.filename)}" style="max-width: 100%; max-width: 300px; border-radius: 5px; margin-top: 5px;">
                 <div style="font-size: 0.8em; color: #bbb; margin-top: 5px;">${formattedDate}</div>
             </div>`;
     } else if (mediaTypes.video.includes(ext)) {
         return `
             <div class="message" style="margin-top: ${marginTop}; ${name === globalName ? 'align-self: flex-end;' : ''}">
                 ${showName ? `<div class="sender-name">${escapeHtml(name)}</div>` : ''}
-                <video src="${result.url}" controls style="max-width: 300px; border-radius: 5px; margin-top: 5px;"></video>
+                <video src="${result.url}" controls style="max-width: 100%; max-width: 300px; border-radius: 5px; margin-top: 5px;"></video>
                 <div style="font-size: 0.8em; color: #bbb; margin-top: 5px;">${formattedDate}</div>
             </div>`;
     } else if (mediaTypes.audio.includes(ext)) {
         return `
             <div class="message" style="margin-top: ${marginTop}; ${name === globalName ? 'align-self: flex-end;' : ''}">
                 ${showName ? `<div class="sender-name">${escapeHtml(name)}</div>` : ''}
-                <audio class="custom-audio" src="${result.url}" controls></audio>
+                <audio class="custom-audio" src="${result.url}" controls style="width: 100%; max-width: 300px;"></audio>
                 <div style="font-size: 0.8em; color: #bbb; margin-top: 5px;">${formattedDate}</div>
             </div>`;
     } else if (ext === 'vcf') {
@@ -173,15 +173,15 @@ function parseAttachment(text, { marginTop, showName, name, formattedDate, dict 
         return `
             <div class="message" style="margin-top: ${marginTop}; ${name === globalName ? 'align-self: flex-end;' : ''}">
                 ${showName ? `<div class="sender-name">${escapeHtml(name)}</div>` : ''}
-                <div class="vcf-preview" style="border: 1px solid #ccc; border-radius: 8px; padding: 10px; max-width: 300px; background-color: #1e1e1e;">
+                <div class="vcf-preview" style="border: 1px solid #ccc; border-radius: 8px; padding: 10px; width: 100%; max-width: 300px; background-color: #1e1e1e;">
                     <div style="display: flex; align-items: center; margin-bottom: 10px;">
                         <span style="font-size: 24px; margin-right: 10px;">👤</span>
                         <div style="font-weight: bold; font-size: 16px; color: #eac473;">${escapeHtml(vcfCard.name) || 'Unnamed Contact'}</div>
                     </div>
                     ${vcfCard.title ? `<div style="color: #ccc;">${escapeHtml(vcfCard.title)}</div>` : ''}
                     ${vcfCard.org ? `<div style="color: #ccc;">${escapeHtml(vcfCard.org)}</div>` : ''}
-                    ${vcfCard.phone ? `<div>📞 <a href="tel:${vcfCard.phone}" style="color: #53bdeb; text-decoration: none;">${vcfCard.phone}</a></div>` : ''}
-                    ${vcfCard.email ? `<div>✉️ <a href="mailto:${vcfCard.email}" style="color: #53bdeb; text-decoration: none;">${vcfCard.email}</a></div>` : ''}
+                    ${vcfCard.phone ? `<div>📞 <a href="tel:${vcfCard.phone}" style="color: #53bdeb; text-decoration: none; word-break: break-all;">${vcfCard.phone}</a></div>` : ''}
+                    ${vcfCard.email ? `<div>✉️ <a href="mailto:${vcfCard.email}" style="color: #53bdeb; text-decoration: none; word-break: break-all;">${vcfCard.email}</a></div>` : ''}
                     <div style="font-size: 0.8em; color: #bbb; margin-top: 10px;">${formattedDate}</div>
                 </div>
             </div>`;
@@ -222,7 +222,7 @@ function parsePoll(pollLines, lastSender) {
     const totalVotes = options.reduce((sum, opt) => sum + opt.votes, 0);
 
     let html = `
-        <div class="message" style="margin-top: ${marginTop}; width: 20%; ${name === globalName ? 'align-self: flex-end;' : ''}">
+        <div class="message" style="margin-top: ${marginTop}; width: 100%; max-width: 300px; ${name === globalName ? 'align-self: flex-end;' : ''}">
             ${showName ? `<div class="sender-name" style="font-weight: bold; color: #53bdeb; margin-bottom: 5px;">${escapeHtml(name)}</div>` : ''}
             <div class="poll-box" style="border-radius: 10px; font-family: sans-serif; background-color: #1e1e1e; padding: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
                 <div style="font-weight: bold; margin-bottom: 12px; font-size: 16px; color: #eac473;">📊 ${escapeHtml(pollTitle)}</div>`;

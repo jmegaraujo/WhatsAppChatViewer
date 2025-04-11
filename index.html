@@ -15,21 +15,24 @@
     <div id="header"></div>
 
     <div class="box">
+      <div class="content-wrapper">
         <h1 class="text">WhatsApp Chat Parser</h1>
-        <p class="text">Our WhatsApp Chat Parser allows you to effortlessly extract and analyze your chat data from ZIP or TXT files. With a user-friendly interface, you can easily upload your chat archives and convert them into a structured format for better readability and analysis. Whether you want to review conversations, extract important information, or simply keep a record, our tool supports various file formats and provides options to customize the output to suit your needs.</p>
-        <div class="w-50 mx-auto">
+        <p class="text">Our WhatsApp Chat Parser allows you to effortlessly extract and analyze your chat data from ZIP or TXT files. With a user-friendly interface, you can easily upload your chat archives and convert them into a structured format for better readability and analysis.</p>
+        <p class="text">Whether you want to review conversations, extract important information, or simply keep a record, our tool supports various file formats and provides options to customize the output to suit your needs.</p>
+        <div class="w-75 mx-auto">
           <div class="file-input" onclick="document.getElementById('formFile').click();">
             <p class="fileinput-label">Select File (.txt or .zip)</p>
             <input class="form-control" type="file" id="formFile" style="display: none;" accept=".txt,.zip">
           </div>
         </div>
+      </div>
 
-        <div class="menu" id="menu" hidden>
-          <a href="javascript:void(0)" class="openbtn" onclick="openNav()">&#9776;</a>
-        </div>
-      
-        <div id="overlay"></div>
-        <div class="conversation" id="output"></div>
+      <div class="menu" id="menu" hidden>
+        <a href="javascript:void(0)" class="openbtn" onclick="openNav()">&#9776;</a>
+      </div>
+    
+      <div id="overlay"></div>
+      <div class="conversation" id="output" hidden></div>
     </div>
   </body>
 
@@ -131,6 +134,7 @@
               console.log(users);
               const overlay = createOverlay(users);
               document.getElementById('output').innerHTML = htmlContent;
+              document.getElementById('output').hidden = false;
               document.getElementById("menu").hidden = false;
               document.getElementById('overlay').innerHTML = overlay;
               // Save the chat data globally

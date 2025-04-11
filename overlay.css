@@ -8,26 +8,26 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   background: linear-gradient(135deg, #ff4d4d, #e63939);
   border-radius: 50%;
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 20px;
+  right: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  font-size: 28px;
+  font-size: 24px;
   color: white;
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.3s ease;
+  z-index: 1000;
 }
 
 .openbtn:hover {
   transform: scale(1.15);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
-
 
 .overlay {
   height: 100%;
@@ -54,7 +54,7 @@ body {
 .overlay a {
   padding: 12px;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 18px;
   color: #d1d1d1;
   display: block;
   transition: color 0.3s ease, background-color 0.3s ease;
@@ -158,4 +158,67 @@ body {
 
 .custom-dropdown-toggle:hover {
   background: linear-gradient(135deg, #5a6268, #4b5257);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .openbtn {
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .overlay a {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .overlay .closebtn {
+    font-size: 35px;
+    top: 15px;
+    right: 20px;
+  }
+
+  .dropdown-item {
+    font-size: 15px;
+    padding: 10px 15px;
+  }
+
+  .custom-dropdown-toggle {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .openbtn {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .overlay a {
+    font-size: 15px;
+    padding: 8px;
+  }
+
+  .overlay .closebtn {
+    font-size: 30px;
+    top: 10px;
+    right: 15px;
+  }
+
+  .dropdown-item {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .custom-dropdown-toggle {
+    font-size: 15px;
+    padding: 8px 12px;
+  }
 }
