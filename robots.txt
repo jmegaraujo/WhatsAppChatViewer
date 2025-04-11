@@ -1,0 +1,8 @@
+# robots.txt for WhatsApp Chat Parser
+
+User-agent: *
+Allow: /
+Disallow: /js/
+Disallow: /images/
+
+Sitemap: https://jmegaraujo.github.io/WhatsAppChatViewer/sitemap.xml 
