@@ -13,7 +13,7 @@ body {
 .text {
     font-family: 'Inter';
     color: #d5e0e7;
-    margin: 45px;
+    margin: 10px 45px;
     text-align: justify;
     hyphens: auto;
     line-height: 1.6;
@@ -22,7 +22,7 @@ body {
 h1.text {
     text-align: left;
     font-size: 2.5rem;
-    margin-bottom: 1rem;
+    margin: 45px 45px 20px;
     line-height: 1.2;
 }
 
@@ -65,7 +65,7 @@ h1.text {
     color: #ffffff;
     width: 100%;
     max-width: 400px;
-    margin: 20px auto;
+    margin: 10px auto;
     transition: all 0.3s ease;
     font-weight: 500;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -147,14 +147,14 @@ a[href^="mailto:"]:hover {
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .text {
-        margin: 25px;
+        margin: 15px 25px;
         font-size: 0.95em;
         line-height: 1.5;
     }
 
     h1.text {
         font-size: 2rem;
-        margin-bottom: 1rem;
+        margin: 25px 25px 15px;
     }
 
     .message {
@@ -183,14 +183,14 @@ a[href^="mailto:"]:hover {
 
 @media screen and (max-width: 480px) {
     .text {
-        margin: 20px;
+        margin: 12px 20px;
         font-size: 0.9em;
         line-height: 1.5;
     }
 
     h1.text {
         font-size: 1.75rem;
-        margin-bottom: 0.875rem;
+        margin: 20px 20px 12px;
     }
 
     .message {
