@@ -206,3 +206,66 @@ a[href^="mailto:"]:hover {
         padding: 12px;
     }
 }
+
+footer {
+    margin-top: 3rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(213, 224, 231, 0.1);
+}
+
+footer p {
+    margin: 0 !important;
+    opacity: 0.9;
+    font-size: 0.95rem !important;
+}
+
+footer a {
+    color: #b53836 !important;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+footer a:hover {
+    color: #d64744 !important;
+}
+
+footer a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #d64744;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+footer a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+@media screen and (max-width: 768px) {
+    footer {
+        margin-top: 2rem;
+        padding: 1rem 0;
+    }
+    
+    footer p {
+        font-size: 0.85rem !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    footer {
+        margin-top: 1.5rem;
+        padding: 0.75rem 0;
+    }
+    
+    footer p {
+        font-size: 0.8rem !important;
+    }
+}
