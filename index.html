@@ -48,7 +48,14 @@
 
   <script>
     function openNav() {
-      document.getElementById("myNav").style.width = "20%";
+      const width = window.innerWidth;
+      if (width <= 480) {
+        document.getElementById("myNav").style.width = "75%";
+      } else if (width <= 768) {
+        document.getElementById("myNav").style.width = "50%";
+      } else {
+        document.getElementById("myNav").style.width = "30%";
+      }
     }
 
     function closeNav() {
