@@ -34,5 +34,6 @@ window.handleUserClick = function(userName) {
         chatContainer.innerHTML = htmlContent;
     }
   }
+  closeNav();
 }
   
