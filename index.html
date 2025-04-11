@@ -109,18 +109,42 @@
     <script>
       function openNav() {
         const width = window.innerWidth;
+        const myNav = document.getElementById("myNav");
+        
+        // If overlay doesn't exist yet, return void to prevent errors
+        if (!myNav) return;
+        
+        // If overlay is open, close it
+        if (myNav.style.width && myNav.style.width !== "0%") {
+          closeNav();
+          return;
+        }
+        
         if (width <= 480) {
-          document.getElementById("myNav").style.width = "75%";
+          myNav.style.width = "75%";
         } else if (width <= 768) {
-          document.getElementById("myNav").style.width = "50%";
+          myNav.style.width = "50%";
         } else {
-          document.getElementById("myNav").style.width = "30%";
+          myNav.style.width = "30%";
         }
       }
 
       function closeNav() {
         document.getElementById("myNav").style.width = "0%";
       }
+
+      document.addEventListener('click', function(event) {
+        const myNav = document.getElementById("myNav");
+        const openbtn = document.querySelector('.openbtn');
+        
+        // Checks if the click is outside the overlay and not on the open button
+        // The event.target is the element that was clicked and event is the click event
+        if (myNav.style.width !== "0%" && 
+            !myNav.contains(event.target) && 
+            !openbtn.contains(event.target)) {
+          closeNav();
+        }
+      });
 
       window.onscroll = function() {
         if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
