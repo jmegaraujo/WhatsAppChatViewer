@@ -5,4 +5,5 @@ Allow: /
 Disallow: /js/
 Disallow: /images/
 
+# Sitemap location
 Sitemap: https://jmegaraujo.github.io/WhatsAppChatViewer/sitemap.xml 
