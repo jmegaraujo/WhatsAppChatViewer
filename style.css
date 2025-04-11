@@ -280,3 +280,70 @@ footer a:hover::after {
         font-size: 0.8rem !important;
     }
 }
+
+
+#topButton {
+    display: none;
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    z-index: 1001;
+    border: none;
+    outline: none;
+    background: linear-gradient(135deg, #b53836, #8b2826);
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
+}
+
+#topButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #8b2826, #6b1f1e);
+}
+
+#topButton img {
+    width: 28px;
+    height: 28px;
+    opacity: 0.9;
+    filter: brightness(0) invert(1);
+}
+
+#topButton:hover img {
+    opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+    #topButton {
+        width: 56px;
+        height: 56px;
+        bottom: 85px;
+        right: 20px;
+    }
+
+    #topButton img {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #topButton {
+        width: 48px;
+        height: 48px;
+        bottom: 80px;
+        right: 20px;
+    }
+    
+    #topButton img {
+        width: 22px;
+        height: 22px;
+    }
+}

@@ -9,6 +9,7 @@
     <link rel="preload" href="style.css" as="style">
     <link rel="preload" href="overlay.css" as="style">
     <link rel="preload" href="./images/menu_24dp_E3E3E3.svg" as="image">
+    <link rel="preload" href="./images/arrow-up-thick.svg" as="image">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" as="style">
     
     <!-- Deferred CSS loading -->
@@ -95,6 +96,10 @@
     
       <div id="overlay"></div>
       <div class="conversation" id="output" hidden></div>
+      <button onclick="topFunction()" id="topButton" style="display: none;" title="Go to top">
+        <img src="./images/arrow-up-thick.svg" alt="Arrow Up" width="24" height="24" loading="lazy" decoding="async">
+      </button>
+
     </div>
 
     <!-- Load non-critical scripts -->
@@ -116,6 +121,20 @@
 
       function closeNav() {
         document.getElementById("myNav").style.width = "0%";
+      }
+
+      window.onscroll = function() {
+        if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
+          document.getElementById('topButton').style.display = 'flex';
+        } else {
+          document.getElementById('topButton').style.display = 'none';
+        }
+      };
+      function topFunction() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
       }
     </script>
 
