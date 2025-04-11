@@ -45,7 +45,6 @@ Submit [issues](https://github.com/jmegaraujo/WhatsAppChatViewer/issues/new) and
 - HTML5
 - CSS3
 - JavaScript (ES6+)
-- Bootstrap 5
 - JSZip for handling ZIP files
 
 ### Key Components
