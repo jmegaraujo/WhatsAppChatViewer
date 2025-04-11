@@ -1,6 +1,4 @@
-# WhatsApp Chat Parser [![Deploy static content to Pages](https://github.com/jmegaraujo/WhatsAppChatViewer/actions/workflows/static.yml/badge.svg)](https://github.com/jmegaraujo/WhatsAppChatViewer/actions/workflows/static.yml)
-
-![WACP Logo](images/favicon.ico)
+# WhatsApp Chat Parser <img src="images/favicon.ico" alt="WACP Logo" width="34" height="34" style="vertical-align: middle;">
 
 A modern, user-friendly tool to parse and visualize WhatsApp chat exports. Convert your chat archives into a beautifully structured and readable format.
 
