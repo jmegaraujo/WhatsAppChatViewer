@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+body {
+  font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+.openbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #ff4d4d, #e63939);
+  border-radius: 50%;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  font-size: 28px;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.openbtn:hover {
+  transform: scale(1.15);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+
+.overlay {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  background: rgba(30, 30, 30, 0.75);
+  overflow-x: hidden;
+  transition: width 0.5s ease-in-out;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.overlay-content {
+  position: relative;
+  top: 15%;
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.overlay a {
+  padding: 12px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #d1d1d1;
+  display: block;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.overlay a:hover,
+.overlay a:focus {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 40px;
+  color: #d1d1d1;
+  transition: color 0.3s ease;
+}
+
+.overlay .closebtn:hover {
+  color: #ff4d4d;
+}
+
+.dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.dropdown-toggle {
+  width: 100% !important;
+}
+
+.dropdown-menu {
+  position: absolute !important;
+  top: 100%;
+  left: 0 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box;
+  background: rgba(40, 40, 40, 0.85);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+}
+
+.dropdown-item {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 12px 20px;
+  color: #e4e4e4;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+}
+
+.dropdown-item:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 100%;
+  top: 0;
+  white-space: nowrap;
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  margin-left: 8px;
+  z-index: 99;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ff4d4d;
+}
+
+.custom-dropdown-toggle {
+  background: linear-gradient(135deg, #6c757d, #5a6268);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 18px;
+  color: #fff;
+  width: 100%;
+  text-align: left;
+  transition: background 0.3s ease;
+}
+
+.custom-dropdown-toggle:hover {
+  background: linear-gradient(135deg, #5a6268, #4b5257);
+}

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WACP</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/overlay.css">
+  </head>
+  <body>
+    <div id="header"></div>
+
+    <div class="box">
+        <h1 class="text">WhatsApp Chat Parser</h1>
+        <p class="text">Our WhatsApp Chat Parser allows you to effortlessly extract and analyze your chat data from ZIP or TXT files. With a user-friendly interface, you can easily upload your chat archives and convert them into a structured format for better readability and analysis. Whether you want to review conversations, extract important information, or simply keep a record, our tool supports various file formats and provides options to customize the output to suit your needs.</p>
+        <div class="w-50 mx-auto">
+          <div class="file-input" onclick="document.getElementById('formFile').click();">
+            <p class="fileinput-label">Select File (.txt or .zip)</p>
+            <input class="form-control" type="file" id="formFile" style="display: none;" accept=".txt,.zip">
+          </div>
+        </div>
+
+        <div class="menu" id="menu" hidden>
+          <a href="javascript:void(0)" class="openbtn" onclick="openNav()">&#9776;</a>
+        </div>
+      
+        <div id="overlay"></div>
+        <div class="conversation" id="output"></div>
+    </div>
+  </body>
+
+  <script>
+    function openNav() {
+      document.getElementById("myNav").style.width = "20%";
+    }
+
+    function closeNav() {
+      document.getElementById("myNav").style.width = "0%";
+    }
+  </script>
+
+  <script type="module">
+    import { parseConversation, downloadFile } from './parser.js';
+    import { createOverlay } from './overlay.js';
+
+    fetch('header.html')
+    .then(response => {
+      if (!response.ok) {
+      throw new Error('Network response was not ok');
+      }
+      return response.text();
+    })
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+    })
+    .catch(error => {
+      console.error('There was a problem loading the header:', error);
+    });
+
+    document.getElementById('formFile').addEventListener('change', function (event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const fileName = file.name;
+      const fileExtension = fileName.split('.').pop().toLowerCase();
+
+      if (fileExtension === 'txt') {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const textContent = e.target.result;
+          console.log('Text File Content:', textContent);
+        };
+        reader.readAsText(file);
+      }else if (fileExtension === 'zip') {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          JSZip.loadAsync(e.target.result).then(function (zip) {
+            const dict = [];
+            const filePromises = Object.keys(zip.files).map(function (filename) {
+              if (!filename.toLowerCase().endsWith('.txt') && !filename.toLowerCase().endsWith('.vcf')) {
+                return zip.files[filename].async('arraybuffer').then(function (fileData) {
+                  const ext = filename.toLowerCase().split('.').pop();
+                  let mimeType;
+                  switch (ext) {
+                    case 'webp': mimeType = 'image/webp'; break;
+                    case 'jpg':
+                    case 'jpeg': mimeType = 'image/jpeg'; break;
+                    case 'png': mimeType = 'image/png'; break;
+                    case 'gif': mimeType = 'image/gif'; break;
+                    case 'bmp': mimeType = 'image/bmp'; break;
+                    case 'svg': mimeType = 'image/svg+xml'; break;
+
+                    case 'mp4': mimeType = 'video/mp4'; break;
+                    case 'mkv': mimeType = 'video/x-matroska'; break;
+                    case 'avi': mimeType = 'video/x-msvideo'; break;
+                    case 'mov': mimeType = 'video/quicktime'; break;
+                    case 'wmv': mimeType = 'video/x-ms-wmv'; break;
+                    case 'flv': mimeType = 'video/x-flv'; break;
+                    case 'webm': mimeType = 'video/webm'; break;
+
+                    case 'mp3': mimeType = 'audio/mpeg'; break;
+                    case 'opus': mimeType = 'audio/ogg'; break;
+                    case 'wav': mimeType = 'audio/wav'; break;
+                    case 'ogg': mimeType = 'audio/ogg'; break;
+                    case 'flac': mimeType = 'audio/flac'; break;
+                    case 'aac': mimeType = 'audio/aac'; break;
+
+                    default: mimeType = 'application/octet-stream'; break;
+                  }
+
+                  const blob = new Blob([fileData], { type: mimeType });
+                  const url = URL.createObjectURL(blob);
+                  dict.push({ filename, fileData: blob, url });
+                });
+              } else{
+                return zip.files[filename].async('string').then(function (fileData) {
+                  dict.push({ filename, fileData });
+                });
+              }
+            });
+
+            Promise.all(filePromises).then(() => {
+              let users = [];
+              let htmlContent = "";
+              ({ users, htmlContent } = parseConversation(dict));
+              console.log(users);
+              const overlay = createOverlay(users);
+              document.getElementById('output').innerHTML = htmlContent;
+              document.getElementById("menu").hidden = false;
+              document.getElementById('overlay').innerHTML = overlay;
+              // Save the chat data globally
+              window.chatData = dict;
+            }).catch(err => console.error('Error processing ZIP:', err));
+          });
+        };
+        reader.readAsArrayBuffer(file);
+      }  else {
+        alert('Unsupported file type!');
+      }
+    });
+
+  </script>
+  
+</html>
