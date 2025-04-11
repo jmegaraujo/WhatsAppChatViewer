@@ -1,4 +1,4 @@
-# WhatsApp Chat Parser <img src="images/favicon.ico" alt="WACP Logo" width="34" height="34" style="vertical-align: middle;">
+# WhatsApp Chat Parser <img src="images/favicon.ico" alt="WACP Logo" width="34" height="34" style="vertical-align: bottom">
 
 A modern, user-friendly tool to parse and visualize WhatsApp chat exports. Convert your chat archives into a beautifully structured and readable format.
 
