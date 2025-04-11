@@ -22,6 +22,7 @@ const regexMessage = message => message.match(/^\[?(\d{2})\/(\d{2})\/(\d{4}), (\
 // Main Parsing Function
 export function parseConversation(dict) {
     users = [];
+    globalName = "";
     let htmlContent = `
         <div style="display: flex; flex-direction: column; align-items: flex-start;">
             <div class="message" style="padding: 10px; border-radius: 10px; width: fit-content; font-family: sans-serif; margin: 20px auto 10px auto; display: table;">
@@ -194,7 +195,7 @@ function parseAttachment(text, { marginTop, showName, name, formattedDate, dict 
                 ${escapeHtml(cleanFilename)}
             </a>
             <button onclick="downloadFile('${result.url}', '${escapeHtml(cleanFilename)}')" style="background: none; border: none; cursor: pointer;">
-                <img src="../static/images/download.svg" alt="File Icon" style="width: 20px; height: 20px; margin-right: 5px;">
+                <img src="./images/download.svg" alt="File Icon" style="width: 20px; height: 20px; margin-right: 5px;">
             </button>
             <div style="font-size: 0.8em; color: #bbb; margin-top: 5px;">${formattedDate}</div>
         </div>`;
