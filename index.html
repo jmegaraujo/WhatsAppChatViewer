@@ -79,7 +79,7 @@
             <p class="fileinput-label">Select File (.txt or .zip)</p>
             <input class="form-control" type="file" id="formFile" style="display: none;" accept=".txt,.zip">
           </div>
-          <div class="loader" id="loader" hidden></div>
+          <div class="loader" id="topPageLoader" hidden></div>
         </div>
         <footer class="text-center mt-4">
           <p class="text" style="font-size: 0.9em; margin: 10px;">
@@ -103,6 +103,8 @@
       <button onclick="bottomFunction()" class="navigation-button" id="bottomButton" style="display: none;" title="Go to bottom">
         <img src="./images/arrow-up-thick.svg" alt="Arrow Down" style="transform: rotate(180deg);" width="24" height="24" loading="lazy" decoding="async">
       </button>
+
+      <div class="loader" id="bottomPageLoader" hidden></div>
 
     </div>
 
@@ -238,7 +240,7 @@
           }
           return processTextFile(zip, filename, dict);
         });
-        document.getElementById('loader').hidden = false;
+        document.getElementById('topPageLoader').hidden = false;
         Promise.all(filePromises)
           .then(() => updateUIWithChatData(dict))
           .catch(err => console.error('Error processing files:', err));
@@ -295,7 +297,7 @@
         ({ users, htmlContent } = parseConversation(dict));
         
         document.getElementById('output').innerHTML = htmlContent;
-        document.getElementById('loader').hidden = true;
+        document.getElementById('topPageLoader').hidden = true;
         document.getElementById('output').hidden = false;
         document.getElementById('bottomButton').style.display = 'flex';
         document.getElementById("menu").hidden = false;
