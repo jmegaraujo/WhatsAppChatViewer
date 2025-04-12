@@ -303,8 +303,11 @@ export function loadMoreMessages() {
 
     loadingIndicator.style.display = 'block';
     
-    const currentCount = document.querySelectorAll('.message').length;
-    const nextBatch = window.allMessages.slice(currentCount, currentCount + 100);
+    if (!window.loadedMessageCount) {
+        window.loadedMessageCount = 0;
+    }
+    
+    const nextBatch = window.allMessages.slice(window.loadedMessageCount, window.loadedMessageCount + 100);
     
     if (nextBatch.length === 0) {
         loadingIndicator.style.display = 'none';
@@ -322,6 +325,7 @@ export function loadMoreMessages() {
         messagesContainer.insertAdjacentHTML('beforeend', message);
     });
 
+    window.loadedMessageCount += nextBatch.length;
     loadingIndicator.style.display = 'none';
 }
 
