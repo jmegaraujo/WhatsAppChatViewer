@@ -49,6 +49,7 @@ export function parseConversation(dict) {
     htmlContent += '<div id="loadingIndicator" style="text-align: center; padding: 20px; display: none; background: #1e1e1e; border-radius: 10px; margin: 20px auto; width: 200px;">Loading more messages...</div>';
     
     users = users.filter(user => user !== chatGroupName && user !== "You");
+    window.loadedMessageCount = firstBatch.length;
     return { users, htmlContent, totalMessages };
 }
 
