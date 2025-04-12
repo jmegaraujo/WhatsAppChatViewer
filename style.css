@@ -219,7 +219,7 @@ a[href^="mailto:"]:hover {
 }
 
 footer {
-    margin-top: 3rem;
+    margin-top: 2rem;
     padding: 1.5rem 0;
     border-top: 1px solid rgba(213, 224, 231, 0.1);
 }
@@ -345,5 +345,46 @@ footer a:hover::after {
     .navigation-button img {
         width: 22px;
         height: 22px;
+    }
+}
+
+.loader {
+    border: 8px solid #2a2f32;
+    border-radius: 50%;
+    border-top: 8px solid #b53836;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    margin: 30px auto 0;
+    position: relative;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media screen and (max-width: 768px) {
+    .loader {
+        width: 50px;
+        height: 50px;
+        border-width: 6px;
+        border-top-width: 6px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .loader {
+        width: 40px;
+        height: 40px;
+        border-width: 5px;
+        border-top-width: 5px;
     }
 }
