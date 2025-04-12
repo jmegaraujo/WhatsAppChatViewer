@@ -87,32 +87,7 @@ Then open `http://localhost:8000` in your browser
 
 ## Contributing
 
-Contributions are welcome! Here's how you can help:
-
-### Code Contributions
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-### Issues and Bugs
-
-If you find a bug or have a suggestion:
-
-1. Check if the issue already exists in our [issue tracker](https://github.com/jmegaraujo/WhatsAppChatViewer/issues)
-2. If not, [create a new issue](https://github.com/jmegaraujo/WhatsAppChatViewer/issues/new)
-   - Clearly describe the issue/suggestion
-   - Include steps to reproduce for bugs
-   - Add screenshots if helpful
-
-### Pull Requests
-
-- Ensure your PR description clearly describes the problem and solution
-- Include the relevant issue number if applicable
-- Update the README.md with details of changes if needed
-- The PR will be merged once you have the sign-off of the maintainers
+We welcome contributions! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on how to get started.
 
 ## License
 
