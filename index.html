@@ -104,7 +104,6 @@
         <img src="./images/arrow-up-thick.svg" alt="Arrow Down" style="transform: rotate(180deg);" width="24" height="24" loading="lazy" decoding="async">
       </button>
 
-      <div class="loader" id="bottomPageLoader" hidden></div>
 
     </div>
 
@@ -178,7 +177,7 @@
 
     <!-- Main application logic -->
     <script type="module">
-      import { parseConversation, downloadFile, setGlobalName } from './js/parser.js';
+      import { parseConversation, downloadFile, setGlobalName, loadMoreMessages } from './js/parser.js';
       import { createOverlay } from './js/overlay.js';
 
       // Load header content
@@ -196,6 +195,18 @@
 
       // Initialize file handling
       document.getElementById('formFile').addEventListener('change', handleFileSelect);
+
+      // Initialize intersection observer for infinite scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Add a small delay to ensure smooth loading
+            setTimeout(() => {
+              loadMoreMessages();
+            }, 100);
+          }
+        });
+      });
 
       function handleFileSelect(event) {
         const file = event.target.files[0];
@@ -302,6 +313,23 @@
         document.getElementById('bottomButton').style.display = 'flex';
         document.getElementById("menu").hidden = false;
         document.getElementById('overlay').innerHTML = createOverlay(users);
+        
+        // Observe the loading indicator for infinite scroll
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        if (loadingIndicator) {
+          observer.observe(loadingIndicator);
+        }
+
+        // Also add a scroll event listener as a backup
+        window.addEventListener('scroll', () => {
+          const scrollPosition = window.innerHeight + window.scrollY;
+          const documentHeight = document.documentElement.scrollHeight;
+          
+          // If we're within 200px of the bottom
+          if (documentHeight - scrollPosition < 200) {
+            loadMoreMessages();
+          }
+        });
         
         window.chatData = dict;
       }

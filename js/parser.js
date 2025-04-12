@@ -31,21 +31,30 @@ export function parseConversation(dict) {
                 </div>
             </div>`;
 
+    window.allMessages = [];
     dict.forEach(item => {
         if (item.filename.toLowerCase().endsWith('.txt')) {
-            htmlContent += parseTextFile(item.fileData, dict);
+            const messages = parseTextFile(item.fileData, dict);
+            window.allMessages = window.allMessages.concat(messages);
         }
     });
+
+    // Get first batch of messages
+    const firstBatch = window.allMessages.slice(0, 100);
+    htmlContent += firstBatch.join('');
     htmlContent += '</div>';
+    
+    htmlContent += '<div id="loadingIndicator" style="text-align: center; padding: 20px; display: none; background: #1e1e1e; border-radius: 10px; margin: 20px auto; width: 200px;">Loading more messages...</div>';
+    
     users = users.filter(user => user !== chatGroupName && user !== "You");
     return { users, htmlContent };
 }
 
 function parseTextFile(fileData, dict) {
     const lines = fileData.split('\n').filter(line => line.trim());
-    if (!lines.length) return '';
+    if (!lines.length) return [];
 
-    let html = '', lastSender = null, pollActive = false, pollLines = [];
+    let messages = [], lastSender = null, pollActive = false, pollLines = [];
     setChatMetadata(lines);
 
     for (const line of lines) {
@@ -57,7 +66,7 @@ function parseTextFile(fileData, dict) {
             if (!users.includes(name)) users.push(name);
 
             if (pollActive) {
-                html += parsePoll(pollLines, lastSender);
+                messages.push(parsePoll(pollLines, lastSender));
                 pollActive = false;
                 pollLines = [];
             }
@@ -65,10 +74,10 @@ function parseTextFile(fileData, dict) {
             if (text.trim().startsWith('POLL:')) {
                 pollActive = true;
                 pollLines.push(trimmedLine);
-            } else {
+            } else { 
                 const parsed = parseMessage(trimmedLine, lastSender, dict);
                 if (parsed) {
-                    html += parsed;
+                    messages.push(parsed);
                     lastSender = name;
                 }
             }
@@ -77,8 +86,8 @@ function parseTextFile(fileData, dict) {
         }
     }
 
-    if (pollActive) html += parsePoll(pollLines, lastSender);
-    return html;
+    if (pollActive) messages.push(parsePoll(pollLines, lastSender));
+    return messages;
 }
 
 function setChatMetadata(lines) {
@@ -276,3 +285,40 @@ export function downloadFile(url, filename) {
 }
 
 window.downloadFile = downloadFile;
+
+export function loadMoreMessages() {
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    if (!loadingIndicator) {
+        console.log('Loading indicator not found');
+        return;
+    }
+
+    // Prevent multiple simultaneous loads
+    if (loadingIndicator.style.display === 'block') {
+        console.log('Already loading messages');
+        return;
+    }
+
+    loadingIndicator.style.display = 'block';
+    
+    const currentCount = document.querySelectorAll('.message').length;
+    const nextBatch = window.allMessages.slice(currentCount, currentCount + 100);
+    
+    if (nextBatch.length === 0) {
+        loadingIndicator.style.display = 'none';
+        return;
+    }
+
+    const messagesContainer = document.querySelector('.conversation > div');
+    if (!messagesContainer) {
+        console.log('Messages container not found');
+        loadingIndicator.style.display = 'none';
+        return;
+    }
+
+    nextBatch.forEach(message => {
+        messagesContainer.insertAdjacentHTML('beforeend', message);
+    });
+
+    loadingIndicator.style.display = 'none';
+}
