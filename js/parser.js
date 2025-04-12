@@ -32,10 +32,12 @@ export function parseConversation(dict) {
             </div>`;
 
     window.allMessages = [];
+    let totalMessages = 0;
     dict.forEach(item => {
         if (item.filename.toLowerCase().endsWith('.txt')) {
             const messages = parseTextFile(item.fileData, dict);
             window.allMessages = window.allMessages.concat(messages);
+            totalMessages += countMessagesFromText(item.fileData);
         }
     });
 
@@ -47,7 +49,7 @@ export function parseConversation(dict) {
     htmlContent += '<div id="loadingIndicator" style="text-align: center; padding: 20px; display: none; background: #1e1e1e; border-radius: 10px; margin: 20px auto; width: 200px;">Loading more messages...</div>';
     
     users = users.filter(user => user !== chatGroupName && user !== "You");
-    return { users, htmlContent };
+    return { users, htmlContent, totalMessages };
 }
 
 function parseTextFile(fileData, dict) {
@@ -321,4 +323,12 @@ export function loadMoreMessages() {
     });
 
     loadingIndicator.style.display = 'none';
+}
+
+function countMessagesFromText(fileData) {
+    return fileData
+        .split('\n')
+        .map(line => stripHiddenUnicode(line.trim()))
+        .filter(line => regexMessage(line))
+        .length;
 }

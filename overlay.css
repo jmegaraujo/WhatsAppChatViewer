@@ -266,3 +266,41 @@ body {
   width: 16px;
   height: 16px;
 }
+
+.chat-stats {
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #333;
+}
+
+.chat-stats h3 {
+  color: #eac473;
+  margin: 0 0 15px 0;
+  font-size: 1.1em;
+  text-align: center;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #333;
+}
+
+.stat-item:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  color: #bbb;
+  font-size: 0.9em;
+}
+
+.stat-value {
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95em;
+}

@@ -254,9 +254,12 @@
         reader.readAsArrayBuffer(file);
       }
 
+      let attachmentCount = 0;
       function processZipContents(zip) {
+        attachmentCount = 0;
         const dict = [];
         const filePromises = Object.keys(zip.files).map(filename => {
+          attachmentCount++;
           if (!filename.toLowerCase().endsWith('.txt') && !filename.toLowerCase().endsWith('.vcf')) {
             return processMediaFile(zip, filename, dict);
           }
@@ -316,14 +319,17 @@
         let users = [];
         let htmlContent = "";
         setGlobalName("");
-        ({ users, htmlContent } = parseConversation(dict));
+        const { users: parsedUsers, htmlContent: parsedHtml, totalMessages } = parseConversation(dict);
+        users = parsedUsers;
+        htmlContent = parsedHtml;
         
         document.getElementById('output').innerHTML = htmlContent;
         document.getElementById('topPageLoader').hidden = true;
         document.getElementById('output').hidden = false;
         document.getElementById('bottomButton').style.display = 'flex';
         document.getElementById("menu").hidden = false;
-        document.getElementById('overlay').innerHTML = createOverlay(users);
+        document.getElementById('overlay').innerHTML = createOverlay(users, attachmentCount);
+        document.getElementById('messageCount').textContent = totalMessages;
         
         // Observe the loading indicator for infinite scroll
         const loadingIndicator = document.getElementById('loadingIndicator');
