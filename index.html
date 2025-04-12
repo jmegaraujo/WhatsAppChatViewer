@@ -96,8 +96,11 @@
     
       <div id="overlay"></div>
       <div class="conversation" id="output" hidden></div>
-      <button onclick="topFunction()" id="topButton" style="display: none;" title="Go to top">
+      <button onclick="topFunction()" class="navigation-button" id="topButton" style="display: none;" title="Go to top">
         <img src="./images/arrow-up-thick.svg" alt="Arrow Up" width="24" height="24" loading="lazy" decoding="async">
+      </button>
+      <button onclick="bottomFunction()" class="navigation-button" id="bottomButton" style="display: none;" title="Go to bottom">
+        <img src="./images/arrow-up-thick.svg" alt="Arrow Down" style="transform: rotate(180deg);" width="24" height="24" loading="lazy" decoding="async">
       </button>
 
     </div>
@@ -150,13 +153,21 @@
       window.onscroll = function() {
         if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
           document.getElementById('topButton').style.display = 'flex';
+          document.getElementById('bottomButton').style.display = 'none';
         } else {
           document.getElementById('topButton').style.display = 'none';
+          document.getElementById('bottomButton').style.display = 'flex';
         }
       };
       function topFunction() {
         window.scrollTo({
           top: 0,
+          behavior: 'smooth'
+        });
+      }
+      function bottomFunction() {
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
           behavior: 'smooth'
         });
       }
@@ -284,6 +295,7 @@
         
         document.getElementById('output').innerHTML = htmlContent;
         document.getElementById('output').hidden = false;
+        document.getElementById('bottomButton').style.display = 'flex';
         document.getElementById("menu").hidden = false;
         document.getElementById('overlay').innerHTML = createOverlay(users);
         
