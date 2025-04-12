@@ -178,15 +178,15 @@ function parseAttachment(text, { marginTop, showName, name, formattedDate, dict 
         return `
             <div class="message" style="margin-top: ${marginTop}; ${name === globalName ? 'align-self: flex-end;' : ''}">
                 ${showName ? `<div class="sender-name">${escapeHtml(name)}</div>` : ''}
-                <div class="vcf-preview" style="border: 1px solid #ccc; border-radius: 8px; padding: 10px; width: 100%; max-width: 300px; background-color: #1e1e1e;">
-                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <div class="vcf-preview" style="border: 1px solid #ccc; border-radius: 8px; padding: 10px; width: 100%; max-width: 300px; background-color: #1e1e1e; box-sizing: border-box;">
+                    <div style="display: flex; align-items: center; margin-bottom: 10px; flex-wrap: wrap;">
                         <span style="font-size: 24px; margin-right: 10px;">👤</span>
-                        <div style="font-weight: bold; font-size: 16px; color: #eac473;">${escapeHtml(vcfCard.name) || 'Unnamed Contact'}</div>
+                        <div style="font-weight: bold; font-size: 16px; color: #eac473; word-break: break-word;">${escapeHtml(vcfCard.name) || 'Unnamed Contact'}</div>
                     </div>
-                    ${vcfCard.title ? `<div style="color: #ccc;">${escapeHtml(vcfCard.title)}</div>` : ''}
-                    ${vcfCard.org ? `<div style="color: #ccc;">${escapeHtml(vcfCard.org)}</div>` : ''}
-                    ${vcfCard.phone ? `<div>📞 <a href="tel:${vcfCard.phone}" style="color: #53bdeb; text-decoration: none; word-break: break-all;">${vcfCard.phone}</a></div>` : ''}
-                    ${vcfCard.email ? `<div>✉️ <a href="mailto:${vcfCard.email}" style="color: #53bdeb; text-decoration: none; word-break: break-all;">${vcfCard.email}</a></div>` : ''}
+                    ${vcfCard.title ? `<div style="color: #ccc; word-break: break-word;">${escapeHtml(vcfCard.title)}</div>` : ''}
+                    ${vcfCard.org ? `<div style="color: #ccc; word-break: break-word;">${escapeHtml(vcfCard.org)}</div>` : ''}
+                    ${vcfCard.phone ? `<div style="word-break: break-word;">📞 <a href="tel:${vcfCard.phone}" style="color: #53bdeb; text-decoration: none;">${vcfCard.phone}</a></div>` : ''}
+                    ${vcfCard.email ? `<div style="word-break: break-word;">✉️ <a href="mailto:${vcfCard.email}" style="color: #53bdeb; text-decoration: none;">${vcfCard.email}</a></div>` : ''}
                     <div style="font-size: 0.8em; color: #bbb; margin-top: 10px;">${formattedDate}</div>
                 </div>
             </div>`;
