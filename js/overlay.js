@@ -9,6 +9,10 @@ export function createOverlay(users) {
       <div id="myNav" class="overlay">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div class="overlay-content">
+          <button class="print-button" onclick="window.printChat();">
+            <img src="./images/print.svg" alt="Print" width="24" height="24" loading="lazy" decoding="async">
+            Print Chat
+          </button>
           <div class="dropdown w-100">
             <button class="dropdown-toggle custom-dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
               Choose Author
@@ -35,5 +39,10 @@ window.handleUserClick = function(userName) {
     }
   }
   closeNav();
+}
+
+window.printChat = function() {
+  closeNav();
+  window.print();
 }
   
